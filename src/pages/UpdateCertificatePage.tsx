@@ -1,0 +1,336 @@
+import searchIcon from "@/assets/search2.png";
+import statusIcon from "@/assets/status.png";
+import recordIcon from "@/assets/record.png";
+
+type UpdateStep = {
+  step: string;
+  icon: string;
+  title: string;
+  desc: string;
+};
+
+const updateSteps: UpdateStep[] = [
+  {
+    step: "01",
+    icon: searchIcon,
+    title: "Tìm chứng nhận cần cập nhật",
+    desc: "Nhập mã chứng nhận để xác định đúng hồ sơ cần thay đổi trạng thái trên hệ thống.",
+  },
+  {
+    step: "02",
+    icon: statusIcon,
+    title: "Chọn trạng thái mới",
+    desc: "Thiết lập trạng thái như hợp lệ, tạm dừng hoặc thu hồi kèm ghi chú nếu cần.",
+  },
+  {
+    step: "03",
+    icon: recordIcon,
+    title: "Ghi nhận thay đổi minh bạch",
+    desc: "Sau khi xác nhận, thay đổi sẽ được lưu lại để phục vụ kiểm tra và đối chiếu về sau.",
+  },
+];
+
+const statusHints = [
+  {
+    label: "Hợp lệ",
+    desc: "Chứng nhận đang có hiệu lực bình thường.",
+  },
+  {
+    label: "Tạm dừng",
+    desc: "Dùng khi cần chờ xác minh thêm.",
+  },
+  {
+    label: "Thu hồi",
+    desc: "Dùng khi chứng nhận không còn hợp lệ.",
+  },
+];
+
+function UpdateCertificatePage() {
+  return (
+    <div className="pb-10 lg:pb-14">
+      {/* HERO */}
+      <section className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 overflow-hidden border-b border-white/10">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1800&q=80"
+            alt="Digital workflow and blockchain update"
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-slate-950/82" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/82 to-emerald-950/48" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-28 lg:px-12 lg:py-32">
+          <div className="max-w-5xl">
+            <p className="inline-flex rounded-full border border-emerald-200/20 bg-emerald-400/10 px-5 py-2 text-sm font-bold uppercase tracking-[0.18em] text-emerald-200 backdrop-blur-sm">
+              CẬP NHẬT TRẠNG THÁI
+            </p>
+
+            <h1 className="mt-6 pb-2 text-5xl font-extrabold leading-[1.08] tracking-[-0.03em] md:text-6xl lg:text-7xl">
+              <span className="bg-gradient-to-r from-emerald-200 via-white to-cyan-200 bg-clip-text text-transparent">
+                Quản lý trạng thái chứng nhận minh bạch
+              </span>
+            </h1>
+
+            <p className="mt-6 max-w-5xl text-lg font-medium leading-8 text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)] md:text-xl md:leading-9">
+              Mô phỏng bước cập nhật tình trạng của một chứng nhận đã tồn tại.
+              Người dùng có thể tra cứu đúng hồ sơ, chọn trạng thái mới và chuẩn bị cho
+              bước ghi nhận thay đổi một cách rõ ràng, có kiểm soát.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-white/80">
+              <span className="rounded-full border border-white/10 bg-white/10 px-4 py-2 backdrop-blur-sm">
+                Ethereum Sepolia
+              </span>
+              <span className="rounded-full border border-white/10 bg-white/10 px-4 py-2 backdrop-blur-sm">
+                Update Status Flow
+              </span>
+              <span className="rounded-full border border-white/10 bg-white/10 px-4 py-2 backdrop-blur-sm">
+                Transparent Change Log
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="mx-auto mt-12 flex max-w-6xl flex-col gap-12 px-6 lg:px-8">
+        {/* FLOW */}
+        <section>
+          <div className="rounded-[32px] border border-slate-100 bg-white/80 px-6 py-8 shadow-[0_24px_70px_-34px_rgba(15,23,42,0.14)] backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/70 lg:px-8 lg:py-9">
+            <div className="text-center">
+              <p className="text-sm font-bold uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-300">
+                LUỒNG CẬP NHẬT
+              </p>
+
+              <h2 className="mt-3 text-3xl font-black leading-tight text-slate-900 dark:text-slate-100">
+                3 bước chính trước khi xác nhận thay đổi
+              </h2>
+
+              <p className="mx-auto mt-4 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-400">
+                Quy trình được giữ đơn giản để phù hợp với bản demo PoC, nhưng vẫn thể hiện
+                rõ logic quản lý trạng thái chứng nhận trên blockchain.
+              </p>
+            </div>
+
+            <div className="mt-12 grid items-start gap-8 md:grid-cols-3">
+              {updateSteps.map((item) => (
+                <FlowStepCard key={item.step} item={item} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FORM */}
+        <section>
+          <div className="rounded-[32px] border border-slate-100 bg-white/88 p-6 shadow-[0_24px_70px_-34px_rgba(15,23,42,0.16)] backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/75 lg:p-8">
+            <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+              <div className="max-w-none flex-1">
+
+                <h2 className="mt-3 text-4xl font-black leading-tight tracking-[-0.03em] bg-gradient-to-r from-emerald-500 to-teal-400 bg-clip-text text-transparent">
+  Điều chỉnh trạng thái chứng nhận
+</h2>
+
+                <p className="mt-4 text-0xl leading-9 text-slate-600 dark:text-slate-400">
+                  Điền thông tin cần thiết để mô phỏng thao tác cập nhật trạng thái và chuẩn bị cho bước ghi nhận thay đổi trên hệ thống.
+                </p>
+              </div>
+
+              <InfoTooltip />
+            </div>
+
+            <div className="mt-8 grid gap-6 md:grid-cols-2">
+              <FieldCard label="Mã chứng nhận">
+                <input
+                  type="text"
+                  placeholder="Ví dụ: CERT-2024-001"
+                  className="mt-4 h-14 w-full rounded-[18px] border border-slate-200 bg-slate-50 px-4 text-base font-semibold text-slate-800 outline-none transition-all duration-200 placeholder:text-slate-400 focus:border-emerald-300 focus:ring-4 focus:ring-emerald-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-emerald-500 dark:focus:ring-emerald-900/30"
+                />
+              </FieldCard>
+
+              <FieldCard label="Trạng thái mới">
+                <select className="mt-4 h-14 w-full rounded-[18px] border border-slate-200 bg-slate-50 px-4 text-base font-semibold text-slate-800 outline-none transition-all duration-200 focus:border-emerald-300 focus:ring-4 focus:ring-emerald-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-emerald-500 dark:focus:ring-emerald-900/30">
+                  <option>Hợp lệ</option>
+                  <option>Tạm dừng</option>
+                  <option>Thu hồi</option>
+                </select>
+              </FieldCard>
+
+              <FieldCard label="Ngày cập nhật">
+                <input
+                  type="text"
+                  placeholder="20/04/2026"
+                  className="mt-4 h-14 w-full rounded-[18px] border border-slate-200 bg-slate-50 px-4 text-base font-semibold text-slate-800 outline-none transition-all duration-200 placeholder:text-slate-400 focus:border-emerald-300 focus:ring-4 focus:ring-emerald-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-emerald-500 dark:focus:ring-emerald-900/30"
+                />
+              </FieldCard>
+
+              <div className="rounded-[24px] border border-emerald-100 bg-emerald-50/70 px-5 py-5 shadow-sm dark:border-emerald-900/40 dark:bg-emerald-950/20">
+                <p className="text-sm font-bold uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-300">
+                  GỢI Ý TRẠNG THÁI
+                </p>
+
+                <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-700 dark:text-slate-300">
+                  {statusHints.map((item) => (
+                    <li key={item.label}>
+                      <span className="font-semibold text-slate-900 dark:text-slate-100">
+                        {item.label}:
+                      </span>{" "}
+                      {item.desc}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <FieldCard label="Ghi chú" wide>
+                <textarea
+                  rows={5}
+                  placeholder="Mô tả lý do hoặc nội dung thay đổi..."
+                  className="mt-4 w-full rounded-[18px] border border-slate-200 bg-slate-50 px-4 py-4 text-base font-medium text-slate-800 outline-none transition-all duration-200 placeholder:text-slate-400 focus:border-emerald-300 focus:ring-4 focus:ring-emerald-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-emerald-500 dark:focus:ring-emerald-900/30"
+                />
+              </FieldCard>
+            </div>
+
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <button
+                type="button"
+                className="inline-flex flex-1 items-center justify-center rounded-[22px] bg-emerald-500 px-8 py-4 text-lg font-bold text-white shadow-[0_18px_44px_-18px_rgba(16,185,129,0.38)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-emerald-600"
+              >
+                Bắt đầu cập nhật
+              </button>
+
+              <button
+                type="button"
+                className="inline-flex flex-1 items-center justify-center rounded-[22px] border border-slate-200 bg-white px-8 py-4 text-lg font-bold text-slate-800 transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-200 hover:bg-emerald-50 dark:border-slate-700 dark:bg-slate-950/60 dark:text-slate-100 dark:hover:bg-slate-800"
+              >
+                Xem danh sách
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}
+
+function FlowStepCard({ item }: { item: UpdateStep }) {
+  return (
+    <div className="group flex h-full flex-col items-center rounded-[28px] px-5 py-6 text-center transition-all duration-300 hover:bg-slate-50 hover:shadow-[0_24px_60px_-30px_rgba(15,23,42,0.16)] dark:hover:bg-slate-950/50">
+      <span className="mb-4 inline-flex rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-bold tracking-[0.16em] text-emerald-700 ring-1 ring-emerald-500/20 dark:text-emerald-300">
+        BƯỚC {item.step}
+      </span>
+
+      <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-slate-100 shadow-sm ring-1 ring-slate-200/70 transition-transform duration-300 group-hover:scale-[1.04] dark:bg-slate-800 dark:ring-slate-700/60">
+        <img
+          src={item.icon}
+          alt={item.title}
+          className="h-10 w-10 object-contain"
+        />
+      </div>
+
+      <h3 className="flex min-h-[96px] max-w-[280px] items-center justify-center text-balance text-center text-[2rem] font-black leading-[1.2] tracking-[-0.03em] text-slate-900 dark:text-slate-100">
+        {item.title}
+      </h3>
+
+      <p className="mt-4 min-h-[144px] max-w-[320px] text-balance text-lg leading-8 text-slate-600 dark:text-slate-400">
+        {item.desc}
+      </p>
+    </div>
+  );
+}
+
+function InfoTooltip() {
+  return (
+    <div className="group relative shrink-0 self-start">
+      <div className="flex flex-col items-center">
+        <button
+          type="button"
+          className="inline-flex h-14 w-14 items-center justify-center rounded-3xl border border-slate-200 bg-white text-slate-700 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700 dark:border-slate-700 dark:bg-slate-950/70 dark:text-slate-200 dark:hover:bg-slate-800"
+          aria-label="Xem tóm tắt cập nhật"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="h-5 w-5"
+          >
+            <path d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2Zm0 4.75a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 12 6.75Zm1.5 10.5h-3a.75.75 0 0 1 0-1.5h.75v-3h-.75a.75.75 0 0 1 0-1.5H12a.75.75 0 0 1 .75.75v3.75h.75a.75.75 0 0 1 0 1.5Z" />
+          </svg>
+        </button>
+
+        <p className="mt-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+          Tóm tắt cập nhật
+        </p>
+      </div>
+
+      <div className="pointer-events-none absolute right-0 top-16 z-20 w-[280px] translate-y-2 rounded-[18px] border border-slate-200/90 bg-white/98 p-4 opacity-0 shadow-[0_18px_40px_-22px_rgba(15,23,42,0.18)] ring-1 ring-slate-100 backdrop-blur-md transition-all duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 dark:border-slate-700 dark:bg-slate-950/98">
+        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+          TÓM TẮT CẬP NHẬT
+        </p>
+
+        <div className="mt-3 space-y-2.5">
+          <SummaryRow label="Hiện tại" value="Hợp lệ" tone="emerald" />
+          <SummaryRow label="Sau cập nhật" value="Thu hồi" tone="rose" />
+        </div>
+
+        <div className="mt-3 rounded-[14px] border border-amber-200/70 bg-amber-50/80 px-3.5 py-3 dark:border-amber-900/50 dark:bg-amber-950/30">
+          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-amber-700 dark:text-amber-300">
+            Tác động
+          </p>
+          <p className="mt-1.5 text-sm leading-6 text-slate-700 dark:text-slate-300">
+            Trạng thái mới sẽ được dùng để đối chiếu ở trang xác thực.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FieldCard({
+  label,
+  wide = false,
+  children,
+}: {
+  label: string;
+  wide?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      className={
+        wide
+          ? "md:col-span-2 rounded-[24px] border border-slate-100 bg-white px-5 py-5 shadow-sm dark:border-slate-800 dark:bg-slate-950/60"
+          : "rounded-[24px] border border-slate-100 bg-white px-5 py-5 shadow-sm dark:border-slate-800 dark:bg-slate-950/60"
+      }
+    >
+      <label className="text-sm font-bold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
+        {label}
+      </label>
+      {children}
+    </div>
+  );
+}
+
+function SummaryRow({
+  label,
+  value,
+  tone,
+}: {
+  label: string;
+  value: string;
+  tone: "emerald" | "rose";
+}) {
+  const toneClass =
+    tone === "emerald"
+      ? "text-emerald-700 dark:text-emerald-300"
+      : "text-rose-700 dark:text-rose-300";
+
+  return (
+    <div className="rounded-[14px] border border-slate-200/80 bg-slate-50 px-3.5 py-3 dark:border-slate-700 dark:bg-slate-900/70">
+      <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
+        {label}
+      </p>
+      <p className={`mt-1 text-sm font-bold ${toneClass}`}>{value}</p>
+    </div>
+  );
+}
+
+export default UpdateCertificatePage;

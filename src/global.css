@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 98%; /* slate-50 */
+    --foreground: 215 16.3% 25%; /* slate-900 */
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 16% 20%; /* slate-800 */
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 158 75% 45%; /* emerald-500 */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 14% 95%; /* slate-100 */
+    --accent-foreground: 215 16% 30%; /* slate-700 */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%; /* slate-200 */
+    --input: 214.3 31.8% 91.4%;
+    --ring: 158 75% 45%; /* emerald-500 */
+
+    --radius: 0.75rem;
+  }
+
+
+  .dark {
+    --background: 215 28% 8%; /* slate-950 */
+    --foreground: 210 40% 98%; /* slate-50 */
+
+    --card: 217 32% 15%; /* slate-900/2 */
+    --card-foreground: 210 40% 98%; /* slate-50 */
+
+    --popover: 222 40% 10%;
+    --popover-foreground: 210 40% 96%;
+
+    --primary: 158 70% 55%; /* emerald-500 brighter */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 217 32% 17%;
+    --secondary-foreground: 210 40% 96%;
+
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20% 70%;
+
+    --accent: 217 32% 20%; /* slate-850 */
+    --accent-foreground: 210 40% 96%;
+
+    --destructive: 0 63% 40%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 32% 25%; /* slate-800 */
+    --input: 217 32% 25%;
+    --ring: 158 70% 55%;
+
+    --radius: 0.75rem;
+  }
+
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    margin: 0;
+    line-height: 1.7;
+    letter-spacing: -0.01em;
+    font-family:
+      -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+}
+
+@layer utilities {
+  .premium-hover {
+    @apply transition-all duration-300 hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  .text-premium {
+    @apply leading-relaxed tracking-[-0.015em];
+  }
+
+  .card-glow {
+    @apply ring-1 ring-primary/10 backdrop-blur-2xl;
+  }
+}
